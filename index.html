@@ -2,87 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foxara</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Foxara - Linkovi</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Add Three.js and Vanta.js WAVES scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Add Orbitron Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Vanta.js Background Container -->
+    <!-- Add a div for the Vanta.js background -->
     <div id="vanta-background"></div>
 
-    <!-- Content -->
-    <div class="content">
-        <!-- Logo -->
-        <img src="Ffoxaraldasasdasdogo-removebg-preview.png" alt="Foxara Logo" class="logo" onerror="this.style.display='none'; console.error('Logo failed to load');">
-
-        <!-- Header -->
-        <div class="header">
-            <h1>Foxara</h1>
-            <div class="subtitle">Svaki dan lajv u 21:00+</div>
-            <!-- Add donation text here -->
-            <div class="donation-text">
-                <p>Donacije:Stream donacije su dobrodošle, ali nikada obavezne, donacije ne mogu biti refundirane!</p>
-                <p>Donations:Stream donations are welcome but never mandatory, donations cannot be refunded.</p>
-            </div>
+    <div class="container">
+        <!-- Add the logo here -->
+        <div class="logo-circle">
+            <img src="channels4_profile.jpg" alt="Logo">
         </div>
-        <!-- Links -->
-        <div class="links">
-            <a href="https://streamlabs.com/foxi-foxara/tip" class="link" target="_blank">
+        <h1 class="title">Foxara<span class="highlight"></span></h1>
+        <p class="subtitle">Svaki dan lajv u 21:00+</p>
+        <p class="subtitle-smaller">Donations Cannot Be Refunded!</p>
+
+        <!-- Social Icons -->
+        <div class="social-icons">
+            <a href="https://streamlabs.com/foxi-foxara/tip" class="icon" target="_blank">
                 <i class="fab fa-paypal"></i>
             </a>
-            <a href="https://www.youtube.com/@ffoxara" class="link" target="_blank" data-tooltip="Subscribers: 2k+">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://www.instagram.com/ffoxara/" class="link" target="_blank" data-tooltip="Followers: 500+">
+            <a href="https://www.instagram.com/ffoxara/" class="icon" data-tooltip="Followers: 700+" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://discord.com/invite/2JhtBs4TqH" class="link" target="_blank">
+            <a href="https://www.youtube.com/@ffoxara" class="icon" data-tooltip="Subscribers: 2k+" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://discord.com/invite/2JhtBs4TqH" class="icon" target="_blank">
                 <i class="fab fa-discord"></i>
             </a>
-            <a href="https://www.tiktok.com/@foxaralive" class="link" id="tiktok-link" target="_blank" data-tooltip="Followers: 14K+">
+            <!-- TikTok Icon with Live Bubble -->
+            <a href="https://www.tiktok.com/@foxaralive" class="icon tiktok-icon" data-tooltip="Followers: 19k+" target="_blank">
                 <i class="fab fa-tiktok"></i>
-                <!-- Live Status Bubble -->
-                <div class="live-bubble" id="live-bubble">
-                    <span class="live-dot"></span>
-                    <span class="live-text">Foxara je live upadaj</span>
-                </div>
+                <div class="tiktok-live-bubble">Foxara je lajv upadaj</div>
             </a>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>© Copyright Foxara. All Rights Reserved - deki.lua</p>
+    <footer>
+        © Copyright Foxara. All Rights Reserved - deki.lua
     </footer>
 
+    <!-- Add Vanta.js scripts from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script>
+        // Initialize Vanta.js Waves effect
+        VANTA.WAVES({
+            el: "#vanta-background", // Element to attach the effect
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0xa110b // Custom color
+        });
+    </script>
     <script src="script.js"></script>
-
-    <!-- Music Player -->
-    <div class="music-player">
-        <audio id="background-music" loop>
-            <source src="music.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <div class="controls">
-            <button id="play-pause-btn">
-                <i class="fas fa-play"></i>
-            </button>
-            <button id="mute-btn">
-                <i class="fas fa-volume-up"></i>
-            </button>
-            <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
-        </div>
-        <div class="song-info">
-            <img src="music-logo.png" alt="Song Logo" class="song-logo">
-            <span class="song-title">
-                
-            </span>
-        </div>
-    </div>
 </body>
 </html>
