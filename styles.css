@@ -1,11 +1,27 @@
-/* General Styles */
-body, html {
+/* General Reset */
+* {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: 'Orbitron', Arial, sans-serif; /* Modern geometric font */
-    color: #fff; /* White text for better contrast */
-    overflow: hidden; /* Prevent scrollbars */
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Prevent scrolling on mobile */
+@media (max-width: 768px) {
+    body {
+        overflow: hidden;
+        touch-action: none; /* Disable touch gestures */
+    }
 }
 
 /* Vanta.js Background */
@@ -15,305 +31,221 @@ body, html {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Place it behind the content */
+    z-index: -1;
+    background-color: #000;
 }
 
-/* Content */
-.content {
+/* Slide-in Animation */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container {
+    text-align: center;
+    animation: slideIn 1s ease-out;
     position: relative;
-    z-index: 1; /* Ensure content is above the background */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 20px; /* Add some padding to ensure content doesn't touch the edges */
-    box-sizing: border-box; /* Ensure padding is included in height calculation */
+    z-index: 1;
 }
 
-/* Logo */
-.logo {
-    width: 100px; /* Adjust size as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 5px; /* Tiny spacing between logo and name */
-}
-
-/* Header */
-.header h1 {
-    font-size: 48px; /* Larger font size */
-    margin: 0; /* Remove default margin */
-    color: #fff; /* White text */
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff; /* Lowered glowing effect */
-}
-
-.header .subtitle {
-    font-size: 16px; /* Subtitle font size */
-    color: #ccc; /* Light gray text */
-    margin-bottom: 20px; /* Space below subtitle */
-}
-
-/* Links */
-.links {
-    display: flex;
-    gap: 20px; /* Space between icons */
-    flex-wrap: wrap; /* Allow links to wrap on smaller screens */
-    justify-content: center; /* Center links on smaller screens */
-}
-
-.links .link {
-    color: #fff; /* White icons */
-    text-decoration: none;
-    font-size: 24px; /* Icon size */
-    transition: all 0.3s ease; /* Smooth transition for all properties */
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff; /* Lower intensity glowing effect */
-    position: relative; /* For positioning the live bubble */
-}
-
-.links .link:hover {
-    transform: scale(1.2); /* Slightly scale up on hover */
-}
-
-/* Live Status Bubble */
-.live-bubble {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: -1px; /* Position slightly above the TikTok icon */
-    left: 100%; /* Position to the right of the TikTok icon */
-    transform: translateY(-50%);
-    background-color: rgba(63, 63, 63, 0.8); /* Semi-transparent black */
-    padding: 3px 3px;
-    border-radius: 5px;
-    font-size: 12px;
-    align-items: center;
-    gap: 5px;
-    white-space: nowrap; /* Prevent text from wrapping */
-    margin-left: 10px; /* Space between icon and bubble */
-}
-
-.live-dot {
-    width: 8px;
-    height: 8px;
-    background-color: red;
+/* Logo Circle */
+.logo-circle {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    animation: blink 1s infinite; /* Blinking effect */
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 3px solid #ffae00;
+    box-shadow: 0 0 10px #ffae00;
 }
 
-.live-text {
-    color: #fff;
+.logo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+.title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffa600;
+    text-shadow: 0 0 3px #ffa600, 0 0 7px #ffa600;
 }
 
-/* Tooltip Styles */
-.links .link {
-    position: relative; /* Required for tooltip positioning */
+.highlight {
+    color: #000000;
+    text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
 }
 
-.links .link::after {
-    content: attr(data-tooltip); /* Display the tooltip text */
+.subtitle {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: #ffffff;
+    opacity: 0.8;
+    margin-bottom: 10px; /* Reduced margin to move icons up */
+}
+
+.subtitle-smaller {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: #ffffff;
+    opacity: 0.6;
+    margin-bottom: 10px; /* Adjusted for spacing */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px; /* Added margin-top to move icons up */
+}
+
+.icon {
+    font-size: 1.5rem;
+    color: #ffa600;
+    text-shadow: 0 0 1px #ffa600, 0 0 5px #ffa600;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+    color: #ffa600;
+}
+
+/* Tooltip (Bubble) - Only for Instagram, TikTok, and YouTube */
+.icon[data-tooltip]::after {
+    content: attr(data-tooltip);
     position: absolute;
-    top: -30px; /* Position above the icon */
+    bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(63, 63, 63, 0.8); /* Semi-transparent black */
-    color: #fff; /* White text */
-    padding: 5px 10px;
+    background-color: #ffa600e3; /* Transparent background */
+    color: #ffffff;
+    padding: 4px 8px;
     border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap; /* Prevent text from wrapping */
-    opacity: 0; /* Hide by default */
-    visibility: hidden; /* Hide by default */
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.links .link:hover::after {
-    opacity: 1; /* Show on hover */
-    visibility: visible; /* Show on hover */
+.icon[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Mobile styles */
-@media (max-width: 768px) {
-    .content {
-        padding: 10px; /* Reduce padding on smaller screens */
-        text-align: center; /* Center text on mobile */
-    }
-
-    .header h1 {
-        font-size: 36px; /* Smaller font size for mobile */
-        text-align: center; /* Center the header text */
-    }
-
-    .header .subtitle {
-        font-size: 14px; /* Smaller subtitle font size for mobile */
-        text-align: center; /* Center the subtitle text */
-    }
-
-    .links {
-        gap: 15px; /* Reduce gap between icons on mobile */
-        justify-content: center; /* Center the icons */
-    }
-
-    .links .link {
-        font-size: 20px; /* Smaller icon size for mobile */
-    }
-
-    .live-bubble {
-        top: -8px;
-        padding: 3px 8px;
-        font-size: 10px;
-        margin-left: 5px;
-    }
-
-    .live-dot {
-        width: 6px;
-        height: 6px;
-    }
-
-    .live-text {
-        font-size: 7px;
-    }
-
-    /* Enable hover effects for tooltips on mobile */
-    .links .link:hover::after {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    /* Center the logo on mobile */
-    .logo {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-/* Music Player Styles */
-.music-player {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background-color: transparent; /* Make the background transparent */
-    padding: 10px;
-    border-radius: 10px;
+/* TikTok Live Bubble - Keep this unchanged */
+.tiktok-live-bubble {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(10px, -105%);
+    background-color: #ffa6008a; /* Keep the original background color */
+    color: #ffffff;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-family: 'Orbitron', sans-serif;
+    white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 10px;
-    z-index: 1000;
+    gap: 5px;
+    animation: blink 1s infinite;
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Initially hidden */
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.music-player .controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.music-player button {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.music-player button:hover {
-    color: #ccc;
-}
-
-/* Style the volume slider to be black */
-.music-player #volume-slider {
-    width: 80px;
-    accent-color: rgb(63, 63, 63, 0.8); /* Modern browsers */
-}
-
-/* Fallback for older browsers */
-.music-player #volume-slider {
-    background: transparent;
-    border: 1px solid #fff; /* Optional: Add a border for visibility */
-}
-
-.music-player .song-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.music-player .song-logo {
-    width: 30px;
-    height: 30px;
+/* Blinking Red Circle - Keep this unchanged */
+.tiktok-live-bubble::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: #ff0000;
     border-radius: 50%;
+    animation: blink 1s infinite;
 }
 
-.music-player .song-title {
-    font-size: 14px;
-    color: #fff;
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .music-player {
-        bottom: 10px;
-        left: 10px;
-        padding: 8px;
+/* Blinking Animation */
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
     }
-
-    .music-player button {
-        font-size: 16px;
-    }
-
-    .music-player #volume-slider {
-        width: 60px;
-    }
-
-    .music-player .song-logo {
-        width: 20px;
-        height: 20px;
-    }
-
-    .music-player .song-title {
-        font-size: 12px;
+    50% {
+        opacity: 0.5;
     }
 }
 
-/* Footer Styles */
-.footer {
-    position: fixed;
+/* Hide Bubble on TikTok Icon Hover or Tap */
+.icon.tiktok-icon:hover .tiktok-live-bubble,
+.icon.tiktok-icon:active .tiktok-live-bubble {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0s ease, visibility 0s ease; /* Immediate disappearance */
+}
+
+/* Footer */
+footer {
+    position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 12px;
-    color: #fff;
-    text-align: center;
-    z-index: 1000;
-    opacity: 0.7; /* Slightly transparent */
-}
-
-/* Mobile Footer Styles */
-@media (max-width: 768px) {
-    .footer {
-        font-size: 10px;
-        bottom: 50px;
-    }
-}
-
-/* Header Styles */
-.header {
-    text-align: center;
-    margin-bottom: 10px; /* Increase this value to move the icons further down */
-}
-
-/* Donation Text Styles */
-.donation-text {
-    font-size: 12px;
+    font-size: 0.8rem;
     color: #ffffff;
-    text-align: center;
-    margin-top: -10px; /* Move it even closer to the subtitle */
-    width: 100%;
+    opacity: 0.8;
+    white-space: nowrap; /* Prevent text from wrapping */
+    padding: 0 10px; /* Add padding to ensure text doesn't touch the edges */
 }
-.donation-text p {
-    margin: 2px 0; /* Space between paragraphs */
-    text-align: center; /* Center each paragraph */
-    width: 100%; /* Ensure paragraphs take full width */
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 10px; /* Adjusted for mobile */
+    }
+
+    .subtitle-smaller {
+        font-size: 0.7rem; /* Adjusted for mobile */
+    }
+
+    .social-icons {
+        gap: 15px;
+        margin-top: 5px; /* Adjusted for mobile */
+    }
+
+    .icon {
+        font-size: 1.4rem;
+    }
+
+    .tiktok-live-bubble {
+        font-size: 0.4rem;
+        transform: translate(10px, -105%);
+        padding: 3px 3px;
+        border-radius: 3px;
+    }
+
+    /* Ensure smooth transitions for mobile */
+    .icon.tiktok-icon:active .tiktok-live-bubble {
+        transition: opacity 0s ease, visibility 0s ease;
+    }
+
+    /* Prevent scrolling on mobile */
+    body {
+        overflow: hidden;
+        touch-action: none; /* Disable touch gestures */
+    }
 }
